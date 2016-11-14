@@ -8,8 +8,8 @@ if you want to develop a project with springboot and shiro, so you can refer to 
 and so on
 ```
 ## technology version
-springboot:1.4.2
-java 1.8.0_65
-shiro:1.2.4
+- springboot:1.4.2
+- java 1.8.0_65
+- shiro:1.2.4
 
 
