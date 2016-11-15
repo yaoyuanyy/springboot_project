@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yy.demo.mapper.RoleMapper">
+	<resultMap type="role" id="roleMapper">
+		<id property="id" column="id"/>
+		<result property="roleName" column="role_name"/>
+		<result property="rolePermission" column="role_permission"/>
+		<result property="userId" column="user_id"/>
+	</resultMap>
+	
+	<!-- y由于RoleMapper.java中已经定义了insert()方法，所以这里不能再定义了
+	 <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		insert into role(role_name,user_id) values(#{roleName},#{userId})
+	</insert>
+	
+	<select id="findById" parameterType="long" resultMap="roleMapper">
+		select * from role where id=#{id}
+	</select> -->
+	<select id="findByUserId" parameterType="long" resultMap="roleMapper">
+		select * from role where user_id=#{userId}
+	</select>
+
+</mapper>
