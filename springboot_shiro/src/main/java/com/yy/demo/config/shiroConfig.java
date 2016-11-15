@@ -7,8 +7,11 @@ import java.util.Map;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -96,9 +99,18 @@ public class shiroConfig {
 	@Bean
 	public MyRealm myRealm(){
 		MyRealm realm = new MyRealm();
+		realm.setCacheManager(cacheManager());
+		realm.setCredentialsMatcher(credentialsMatcher());
 		return realm;
 	}
 	
+	@Bean
+	public CredentialsMatcher credentialsMatcher() {
+		HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+		credentialsMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+		credentialsMatcher.setHashIterations(1024);
+		return credentialsMatcher;
+	}
 	@Bean
 	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
 		return new LifecycleBeanPostProcessor();
