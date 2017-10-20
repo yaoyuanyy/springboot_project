@@ -4,7 +4,7 @@ import com.yy.demo.bean.User;
 
 public interface IUserService {
 
-	public int insert(User user);
+	int insert(User user);
 
-	public User fingById(long id);
+	User fingById(long id);
 }

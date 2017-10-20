@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@MapperScan("com.yy.demo.mapper")
 public class MybatisConfig {
 
+    protected static final String CONFIG_LOCATION = "classpath:mybatis/mybatis-config.xml";
+
     @Resource	
     DataSource dataSource;
 	/*@Resource
@@ -58,7 +60,7 @@ public class MybatisConfig {
 
         //添加XML目录
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-       
+        bean.setConfigLocation(resolver.getResource(CONFIG_LOCATION));
         bean.setMapperLocations(resolver.getResources("classpath*:com/yy/**/mapper/*.xml"));
       
         return bean.getObject();
