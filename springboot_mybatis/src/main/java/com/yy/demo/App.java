@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JdbcApp {
+public class App {
 
 	 public static void main(String[] args) throws Exception {
-	        SpringApplication.run(JdbcApp.class, args);
+	        SpringApplication.run(App.class, args);
 	    }
 }

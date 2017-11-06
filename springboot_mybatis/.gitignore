@@ -10,4 +10,5 @@
 /log/
 *.iml
 /logs/
+.DS_Store
 
