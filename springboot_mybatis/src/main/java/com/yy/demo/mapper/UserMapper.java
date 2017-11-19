@@ -6,8 +6,10 @@ import com.yy.demo.bean.User;
 
 public interface UserMapper {
 
-	public int insert(User user);
+	int insert(User user);
 
-	public User findById(@Param("id") long id);
+	User findById(@Param("id") long id);
+
+	int updateScore(@Param("score") long score, @Param("id") long id);
 
 }

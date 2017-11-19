@@ -5,7 +5,8 @@
 		<id property="id" column="id"/>
 		<result property="name" column="name"/>
 		<result property="mobile" column="mobile"/>
-	</resultMap>
+        <result property="score" column="score"/>
+    </resultMap>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		insert into user(name,mobile) values(#{name},#{mobile})
@@ -15,4 +16,7 @@
 		select * from user where id=#{id}
 	</select>
 
+    <update id="updateScore">
+        UPDATE user SET score = #{score} where id=#{id}
+    </update>
 </mapper>

@@ -1,4 +1,4 @@
-package com.yy.vo;
+package com.yy.demo.vo;
 
 public class UserVo {
 

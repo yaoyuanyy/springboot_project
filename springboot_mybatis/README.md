@@ -8,6 +8,6 @@ inside spring boot integrates mybatis via spring-boot-starter-jdbc and mybatis-s
 ```
 
 ## version
-- spring boot:1.4.2
+- spring boot:1.5.4
 - mybatis 3.2.5
 

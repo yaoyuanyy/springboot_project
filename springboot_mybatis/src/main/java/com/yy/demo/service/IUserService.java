@@ -7,4 +7,6 @@ public interface IUserService {
 	int insert(User user);
 
 	User fingById(long id);
+
+    int updateScore(long score, long id);
 }

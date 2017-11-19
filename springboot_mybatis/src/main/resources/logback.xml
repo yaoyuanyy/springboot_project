@@ -95,7 +95,7 @@
 	<logger name="org.springframework.aop" level="info" />
 	<logger name="org.springframework.jmx" level="info" />
 	<logger name="org.springframework.jdbc" level="info" />
-	<logger name="org.springframework.transaction" level="info" />
+	<logger name="org.springframework.transaction" level="debug" />
 	<logger name="ch.qos.logback" level="ERROR" />
 	<logger name="org.activiti" level="info" />
 	<logger name="org.hibernate.validator" level="info" />

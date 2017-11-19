@@ -5,6 +5,7 @@ public class User {
 	private long id;
 	private String name;
 	private String mobile;
+	private int score;
 
 	public long getId() {
 		return id;
@@ -30,8 +31,22 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", mobile=" + mobile + "]";
-	}
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
