@@ -12,4 +12,5 @@ public interface UserMapper {
 
 	int updateScore(@Param("score") long score, @Param("id") long id);
 
+    User fingByStudentId(@Param("studentId") long studentId);
 }

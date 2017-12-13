@@ -21,7 +21,7 @@ public class Task {
     @Resource
     private IUserService userService;
 
-    @Scheduled(initialDelay= 1000, fixedDelay = 1000*1000)
+    //@Scheduled(initialDelay= 1000, fixedDelay = 1000*1000)
     public void updateScore() {
         int score = 0;
         Executor executor = Executors.newFixedThreadPool(10);

@@ -2,6 +2,7 @@ package com.yy.demo.service.impl;
 
 import javax.annotation.Resource;
 
+import com.yy.demo.mapper.StudentMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.cache.TransactionalCacheManager;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private UserMapper userMapper;
 
+    @Resource
+    private StudentMapper studentMapper;
+
 	@Override
     @Transactional(rollbackFor = Throwable.class)
 	public int insert(User user) {
@@ -44,6 +48,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public int updateScore(long score, long id) {
+
         String name = TransactionSynchronizationManager.getCurrentTransactionName();
         System.out.println("--- TransactionName:"+name);
 
@@ -55,6 +60,28 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
         }
         return count;
+    }
+
+    @Override
+    public User fingByStudentId(long studentId) {
+        User user = userMapper.fingByStudentId(studentId);
+        return null;
+    }
+
+    @Override
+    //@Transactional(rollbackFor = Throwable.class)
+    public void updateSchoolName(String schoolName, long studentId) {
+        System.out.println("----");
+        User user = userMapper.fingByStudentId(studentId);
+        System.out.println("studentId:"+studentId+" schoolName:"+schoolName);
+        try {
+            Thread.sleep(1000*10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("sleep xing le");
+
+        studentMapper.updateSchoolName(schoolName, user.getStudentId());
     }
 
 

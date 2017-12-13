@@ -9,4 +9,8 @@ public interface IUserService {
 	User fingById(long id);
 
     int updateScore(long score, long id);
+
+    User fingByStudentId(long studentId);
+
+    void updateSchoolName(String schoolName, long studentId);
 }

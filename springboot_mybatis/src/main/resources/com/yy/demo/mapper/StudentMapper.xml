@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yy.demo.mapper.StudentMapper">
+	<resultMap type="com.yy.demo.bean.Student" id="studentMapper">
+		<id property="id" column="id"/>
+		<result property="teacherId" column="teacherId"/>
+		<result property="schoolName" column="schoolName"/>
+    </resultMap>
+
+	
+	<select id="findById" parameterType="long" resultMap="studentMapper">
+		select * from student where id=#{id}
+	</select>
+
+    <update id="updateSchoolName">
+        UPDATE student SET schoolName = #{schoolName} where id=#{id}
+    </update>
+</mapper>

@@ -3,7 +3,8 @@ package com.yy.demo.bean;
 public class User {
 
 	private long id;
-	private String name;
+    private long studentId;
+    private String name;
 	private String mobile;
 	private int score;
 
@@ -15,7 +16,15 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
+    public long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getName() {
 		return name;
 	}
 
@@ -44,6 +53,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", studentId=" + studentId +
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", score=" + score +

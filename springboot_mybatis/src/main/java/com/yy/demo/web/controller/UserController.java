@@ -34,4 +34,11 @@ public class UserController {
 		System.out.println("user" + user);
 		return "success";
 	}
+
+    @RequestMapping("/updateSchoolName")
+    public String updateSchoolName(String schoolName, long studentId) {
+
+        userService.updateSchoolName(schoolName, studentId);
+        return "success";
+    }
 }
