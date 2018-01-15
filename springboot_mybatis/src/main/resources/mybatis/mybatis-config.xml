@@ -14,6 +14,6 @@
         <setting name="logImpl" value="LOG4J"/>
     </settings>
     <plugins>
-        <plugin interceptor="com.yy.demo.config.MybatisInterceptor"></plugin>
+        <plugin interceptor="com.yy.demo.config.datasource.MybatisInterceptor"></plugin>
     </plugins>
 </configuration>

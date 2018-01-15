@@ -12,7 +12,8 @@ inside spring boot integrates mybatis via spring-boot-starter-jdbc and mybatis-s
 - mybatis 3.2.5
 
 
-## test 两个线程同时访问一个带有@Transactional的service方法的情况
+## test1
+两个线程同时访问一个带有@Transactional的service方法的情况
 - 实验代码：com.yy.demo.service.impl.UserServiceImpl.updateSchoolName
 
 #### 情况1
@@ -124,3 +125,6 @@ User user = userMapper.fingByStudentId(studentId);这条语句上
 ```
 加了for update的select语句需要放在数据库的事务中才起作用
 ```
+
+## test2
+利用自定义注解、拦截器HandlerInterceptorAdapter实现登录验证；利用自定义注解和HandlerMethodArgumentResolver实现

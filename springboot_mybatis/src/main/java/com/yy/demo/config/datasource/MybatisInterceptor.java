@@ -1,4 +1,4 @@
-package com.yy.demo.config;
+package com.yy.demo.config.datasource;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;

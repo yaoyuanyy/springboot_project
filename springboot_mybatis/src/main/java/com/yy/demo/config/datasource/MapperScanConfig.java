@@ -1,4 +1,4 @@
-package com.yy.demo.config;
+package com.yy.demo.config.datasource;
 
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

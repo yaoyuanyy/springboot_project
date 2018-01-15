@@ -1,4 +1,4 @@
-package com.yy.demo.config;
+package com.yy.demo.config.datasource;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
