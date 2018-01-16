@@ -1,4 +1,4 @@
-package com.yy.demo.config;
+package com.yy.demo.web.config;
 
 import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;

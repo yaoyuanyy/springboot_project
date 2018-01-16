@@ -1,10 +1,17 @@
 package com.yy.demo.config;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
+import com.yy.demo.web.config.WebFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,7 +40,54 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/mystatic/").addResourceLocations("classpath:/static/");
 	}
 
-	@Bean
+    /**
+     * 这个方法会覆盖spring默认加的HttpMessageConverters
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+    }
+
+    /**
+     * 这个方法在spring默认加的HttpMessageConverters后面追加自定义的HttpMessageConverter
+     * @param converters
+     */
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        //converters.add(fastJsonHttpMessageConverter4());
+        //converters.add(mappingJackson2HttpMessageConverter());
+    }
+
+    /**
+     * 将response的
+     * @return
+     */
+    @Bean
+    public FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter4() {
+        FastJsonHttpMessageConverter4 messageConverter = new FastJsonHttpMessageConverter4();
+        FastJsonConfig jsonConfig = new FastJsonConfig();
+        jsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteNullBooleanAsFalse,
+                SerializerFeature.WriteNullListAsEmpty,
+                SerializerFeature.WriteNullNumberAsZero,
+                SerializerFeature.WriteNullStringAsEmpty,
+                SerializerFeature.WriteBigDecimalAsPlain);
+
+        messageConverter.setFastJsonConfig(jsonConfig);
+        return messageConverter;
+    }
+
+    //@Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(){
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper mapper = new ObjectMapper();
+
+        converter.setObjectMapper(mapper);
+        return converter;
+    }
+
+    @Bean
 	public FilterRegistrationBean webFilterRegistration(){
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(webFilter);

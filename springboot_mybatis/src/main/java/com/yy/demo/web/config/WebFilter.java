@@ -1,4 +1,4 @@
-package com.yy.demo.config;
+package com.yy.demo.web.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +13,10 @@ import java.util.UUID;
 
 /**
  * Description:
- * <p></p>
- * <pre></pre>
+ * <pre>
+ *     过滤request请求，获取客户端和ip，并生成UUID加入到日志文件的trace_id中，
+ *     使一个请求的request开始到response结束伴随着一个UUID，便于查看一个请求的controler->service->dao日志
+ * </pre>
  * NB.
  * Created by skyler on 2017/11/6 at 下午2:41
  */
