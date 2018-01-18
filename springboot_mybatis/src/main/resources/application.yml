@@ -13,6 +13,8 @@ spring:
       max-active: @spring.tomcat.max-active@
 # Validate the connection before borrowing it from the pool.
       test-on-borrow: @spring.tomcat.test-on-borrow@
+  profiles:
+    active: @profileActive@
 
 server:
   port: @server.port@
@@ -22,3 +24,4 @@ logging:
 
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
+

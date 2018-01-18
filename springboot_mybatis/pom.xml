@@ -77,8 +77,14 @@
         <profile>
             <id>dev</id>
             <properties>
-                <!--自定义注解-->
-                <profileActive>src/main/resources/profile/dev.properties</profileActive>
+                <!--
+                    NOTE: difference between 'maven profile' and 'spring profile'
+                    ,please read url -> https://stackoverflow.com/questions/42390860/configure-active-profile-in-springboot-via-maven
+                -->
+
+                <!--自定义注解 这里只是设置maven profile而不是spring profile
+                , 如果想设置spring profile且引用这里的profile, 需要在application.yml中引用-->
+                <profileActive>dev</profileActive>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -101,7 +107,7 @@
             <id>test</id>
             <properties>
                 <!--自定义注解-->
-                <profileActive>src/main/resources/profile/test.properties</profileActive>
+                <profileActive>test</profileActive>
             </properties>
             <build>
                 <resources>
@@ -120,7 +126,7 @@
     <build>
         <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
         <filters>
-            <filter>${profileActive}</filter>
+            <filter>src/main/resources/profile/${profileActive}.properties</filter>
         </filters>
         <resources>
             <resource>
