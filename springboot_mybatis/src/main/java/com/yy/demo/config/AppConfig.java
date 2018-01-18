@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
 import com.yy.demo.web.config.WebFilter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +19,13 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Configuration
+@Slf4j
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Resource
@@ -55,7 +59,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //converters.add(fastJsonHttpMessageConverter4());
+        converters.add(fastJsonHttpMessageConverter4());
         //converters.add(mappingJackson2HttpMessageConverter());
     }
 
@@ -64,7 +68,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      * @return
      */
     @Bean
+    @ConditionalOnMissingBean
     public FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter4() {
+        log.info("fastJsonHttpMessageConverter4 start ---");
         FastJsonHttpMessageConverter4 messageConverter = new FastJsonHttpMessageConverter4();
         FastJsonConfig jsonConfig = new FastJsonConfig();
         jsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue,
@@ -78,8 +84,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return messageConverter;
     }
 
-    //@Bean
+    @Bean
+    @ConditionalOnMissingBean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(){
+        log.info("mappingJackson2HttpMessageConverter start ---");
+
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper mapper = new ObjectMapper();
 

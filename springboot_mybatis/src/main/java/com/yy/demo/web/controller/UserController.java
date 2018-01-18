@@ -35,12 +35,12 @@ public class UserController {
 	}
 
     /**
-     *
+     * eq: http://localhost:8000/user/findById?id=3
      * @param id
      * @return
      */
 	@RequestMapping("/findById")
-    //@Login
+    @Login
 	public ResponseResult findById(long id, @AttrbuteArg("test") String name, ModelMap modelMap) {
 		User user = userService.fingById(id);
 		log.info("user:{}", user);
