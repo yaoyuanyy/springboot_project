@@ -9,6 +9,7 @@ import com.yy.demo.web.anno.LoginHandlerInterceptor;
 import com.yy.demo.web.config.WebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,18 +25,46 @@ import sun.rmi.runtime.Log;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * <pre>
+ *    ConditionalOnProperty:
+ *      <b color=yellow>情况一</b>: @ConditionalOnProperty(prefix = "spring.skyler", name = "enable", havingValue = "true")
+ *      如果application.yml配置中定义了: spring.skyler.enable=true, 则匹配成功;否则匹配失败
+ *
+ *      <b color=yellow>情况二</b>: @ConditionalOnProperty(prefix = "spring.skyler", name = "enable", matchIfMissing = true)
+ *      不管application.yml配置中定义了: spring.skyler.enable，不管是否设置了值，都匹配成功
+ *
+ *      <b color=yellow>情况三</b>: @ConditionalOnProperty(prefix = "spring.skyler", name = "enable", havingValue = "true", matchIfMissing = true)
+ *      如果application.yml中定义了: spring.skyler.enable，且spring.skyler.enable=true, 则匹配成功; 否则匹配失败, 即：spring.skyler.enable=true2，也是匹配失败
+ *
+ * </pre>
+ */
 @Configuration
 @Slf4j
+@ConditionalOnProperty(prefix = "spring.skyler", name = "enable", matchIfMissing = true)
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Resource
     private WebFilter webFilter;
 
+    public AppConfig(){
+        log.info("--- AppConfig constructor ---");
+    }
+
+    @Configuration
+    public static class NestAppConfig{
+
+        public Object getObject(){
+            log.info("--- NestAppConfig getObject ---");
+            return new Object();
+        }
+    }
+
 	/**
 	 *<ul>
-	 *<li> 自定义static content load path e.g. html jsp freemarker
-	 *<li> so you can visit classpath:/mystatic/*的静态文件
-	 *<li> e.g.:you can visit url:http://localhost:8080/welcome.html 
+	 *  <li> 自定义static content load path e.g. html jsp freemarker
+	 *  <li> so you can visit classpath:/mystatic/*的静态文件
+	 *  <li> e.g.:you can visit url:http://localhost:8080/welcome.html
 	 *</ul> 
 	 */
 	@Override

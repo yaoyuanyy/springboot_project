@@ -5,6 +5,9 @@ spring:
     username: @spring.datasource.username@
     password: @spring.datasource.password@
     driver-class-name: @spring.datasource.driverlassName@
+#自定义：配置文件AppConfig.java是否开启
+  skyler:
+    enable: true
 
 # Number of ms to wait before throwing an exception if no connection is available.
     tomcat:
