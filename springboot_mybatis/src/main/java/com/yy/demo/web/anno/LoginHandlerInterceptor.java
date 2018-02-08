@@ -24,13 +24,16 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
         if (handler instanceof HandlerMethod){
             HandlerMethod method = (HandlerMethod)handler;
             if(method.hasMethodAnnotation(Login.class)){
-                log.info("login pass!");
-                return true;
+                // 从cookie或者header获取token，从而获取登录用户信息，获取到则为是合法用户，允许后续操作
+                if(111 == 111){
+                    log.info("login pass!");
+                    return true;
+                }
+                log.info("please login!");
+                throw new LoginException("no login");
             }
         }
-        log.info("please login!");
-
-        throw new LoginException("no login");
+        return true;
     }
 
     @Override

@@ -126,5 +126,35 @@ User user = userMapper.fingByStudentId(studentId);这条语句上
 加了for update的select语句需要放在数据库的事务中才起作用
 ```
 
-## test2
+## test2 2018-1-2
 利用自定义注解、拦截器HandlerInterceptorAdapter实现登录验证；利用自定义注解和HandlerMethodArgumentResolver实现
+
+
+
+
+## 集成swagger自动生成文档 2018-2-8
+```
+1. 
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.7.0</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.7.0</version>
+</dependency>
+
+2.
+AppConfig.addResourceHandlers(ResourceHandlerRegistry registry)方法添加：
+registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+                
+否则访问：http://localhost:8000/swagger-ui.html，报404错误
+
+3.
+启动项目，访问：http://localhost:8000/swagger-ui.html，查看页面结果
+此时会生成粗略的文档，要想生成细颗粒度的文档，具体参见代码controller类控制
+
+```

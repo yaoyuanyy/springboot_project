@@ -4,6 +4,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yy.demo.config.postprocess.Chinese;
+import com.yy.demo.config.postprocess.MyBeanPostProcessor;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
 import com.yy.demo.web.config.WebFilter;
@@ -60,6 +62,21 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         }
     }
 
+    // test ---------------------------------
+    @Bean
+    public MyBeanPostProcessor myBeanPostProcessor(){
+        return new MyBeanPostProcessor();
+    }
+
+    @Bean
+    public Chinese chinese(){
+        Chinese chinese = new Chinese();
+        chinese.init();
+        chinese.setName("AppConfig chinese setName");
+        return chinese;
+    }
+    // test ---------------------------------
+
 	/**
 	 *<ul>
 	 *  <li> 自定义static content load path e.g. html jsp freemarker
@@ -70,7 +87,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		System.out.println("--- config start ---");
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/mystatic/").addResourceLocations("classpath:/static/");
+		registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/mystatic/")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
 	}
 
     /**
