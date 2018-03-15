@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
  * NB.
  * Created by skyler on 2018/3/14 at 下午5:58
  */
-@Component
 public class MyJavaBean implements InitializingBean{
 
     private String desc;
@@ -25,6 +24,7 @@ public class MyJavaBean implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("@$ MyJavaBean afterPropertiesSet@$");
+        age = 20;
     }
 
     public String getDesc() {

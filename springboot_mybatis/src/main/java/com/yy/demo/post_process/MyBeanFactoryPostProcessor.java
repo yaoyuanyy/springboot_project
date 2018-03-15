@@ -14,14 +14,14 @@ import org.springframework.stereotype.Component;
  * NB.
  * Created by skyler on 2018/3/14 at 下午6:05
  */
-
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor{
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        System.out.println("@$ MyBeanFactoryPostProcessor postProcessBeanFactory@$");
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("myJavaBean");
         String name = beanDefinition.getBeanClassName();
+
         System.out.println("@$ MyBeanFactoryPostProcessor postProcessBeanFactory beanName@$" + name);
+
         MutablePropertyValues pv = beanDefinition.getPropertyValues();
         pv.addPropertyValue("desc", "desc-new");
     }
