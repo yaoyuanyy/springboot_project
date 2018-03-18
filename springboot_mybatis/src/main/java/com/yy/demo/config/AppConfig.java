@@ -10,6 +10,7 @@ import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
 import com.yy.demo.web.config.WebFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -42,6 +43,8 @@ import java.util.List;
  * </pre>
  */
 @Configuration
+@AutoConfigureAfter(PreAppConfig.class)
+@ConditionalOnMissingBean(AppConfig.NestAppConfig.class)
 @Slf4j
 @ConditionalOnProperty(prefix = "spring.skyler", name = "enable", matchIfMissing = true)
 public class AppConfig extends WebMvcConfigurerAdapter {
@@ -54,10 +57,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Configuration
-    public static class NestAppConfig{
+    public static class NestAppConfig extends PreAppConfig{
 
-        public Object getObject(){
-            log.info("--- NestAppConfig getObject ---");
+        @Bean
+        public Object getObject() {
+            log.info("NestAppConfig getObject ---");
             return new Object();
         }
     }
@@ -109,7 +113,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(fastJsonHttpMessageConverter4());
+        //converters.add(fastJsonHttpMessageConverter4());
         //converters.add(mappingJackson2HttpMessageConverter());
     }
 

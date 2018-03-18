@@ -65,11 +65,13 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User fingByStudentId(long studentId) {
         User user = userMapper.fingByStudentId(studentId);
+        SecurityManager securityManager = System.getSecurityManager();
+        securityManager.checkExit(1);
         return null;
     }
 
     @Override
-    //@Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class)
     public void updateSchoolName(String schoolName, long studentId) {
         System.out.println("----");
         User user = userMapper.fingByStudentId(studentId);
