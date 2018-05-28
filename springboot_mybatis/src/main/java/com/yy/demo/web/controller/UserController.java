@@ -18,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 public class UserController {
 
 	@Resource
@@ -31,6 +31,17 @@ public class UserController {
 		return ResponseResult.ok("Hello World!");
 	}
 
+    /**
+     *
+     * <pre>
+     * curl -X POST -H 'Content-Type:application/json' -d '{"name":"<script>alert(11)</script>", "mobile":"", "studentId":23, "score":20}' http://localhost:8000/user/insert
+     *
+     * 运行此例子，你会发现js代码存到了数据库中，等取出在页面显示的时候会弹出alert提示框，从而存在xss攻击问题
+     * 所以，要加一个xssFilter拦截器，具体逻辑看代码
+     * </pre>
+     * @param vo
+     * @return
+     */
 	@ApiOperation(value = "添加user", httpMethod = "POST", notes = "notes",
             produces = "application/json", consumes = "application/json")
 	@PostMapping("/insert")

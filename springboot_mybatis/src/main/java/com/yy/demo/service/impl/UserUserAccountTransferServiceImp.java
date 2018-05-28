@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.yy.demo.bean.UserAccountTransferRecord;
 import com.yy.demo.enums.TransferStatusEnum;
-import com.yy.demo.mapper.AccountTransferMapper;
-import com.yy.demo.service.AccountTransferService;
+import com.yy.demo.mapper.UserAccountTransferMapper;
+import com.yy.demo.service.UserAccountTransferService;
 import com.yy.demo.service.UserAccountService;
 import com.yy.demo.util.HttpUtils;
 import com.yy.demo.util.SignUtil;
@@ -32,10 +32,10 @@ import java.util.UUID;
  */
 @Service
 @Slf4j
-public class AccountTransferServiceImp implements AccountTransferService {
+public class UserUserAccountTransferServiceImp implements UserAccountTransferService {
 
     @Resource
-    private AccountTransferMapper accountTransferMapper;
+    private UserAccountTransferMapper userAccountTransferMapper;
 
     @Resource
     private UserAccountService userAccountService;
@@ -47,7 +47,7 @@ public class AccountTransferServiceImp implements AccountTransferService {
     @Override
     public void transferIn(Long userId, String transferUUid, BigDecimal amount) {
         // 防重转账
-        if (accountTransferMapper.queryByTransferUUid(transferUUid) != null) {
+        if (userAccountTransferMapper.queryByTransferUUid(transferUUid) != null) {
             return;
         }
 
@@ -63,7 +63,7 @@ public class AccountTransferServiceImp implements AccountTransferService {
          * 但是问题来了，如果这两句代码错位重排了怎么办
          */
         // Step (1)
-        accountTransferMapper.insert(transferRecord);
+        userAccountTransferMapper.insert(transferRecord);
 
         // Step (2)
         userAccountService.incrBalance(userId, amount);
@@ -85,7 +85,7 @@ public class AccountTransferServiceImp implements AccountTransferService {
                 .status(TransferStatusEnum.HANDLING.getCode())
                 .retryTimes(0)
                 .build();
-        accountTransferMapper.insert(transferRecord);
+        userAccountTransferMapper.insert(transferRecord);
 
         return transferRecord;
     }
@@ -98,7 +98,7 @@ public class AccountTransferServiceImp implements AccountTransferService {
     @Transactional(rollbackFor = Throwable.class)
     @Override
     public void synDataToOtherService(Long accountTransferId) throws IOException {
-        UserAccountTransferRecord tr = accountTransferMapper.getByIdForUpdate(accountTransferId);
+        UserAccountTransferRecord tr = userAccountTransferMapper.getByIdForUpdate(accountTransferId);
         if (tr.getStatus() == TransferStatusEnum.HANDLING.getCode()) {
             final Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("userId", tr.getUserId());
@@ -112,11 +112,11 @@ public class AccountTransferServiceImp implements AccountTransferService {
                     new TypeReference<ResponseResult<String>>() {});
             if (responseResult.getCode() == 0) {
                 tr.setStatus(TransferStatusEnum.OK.getCode());
-                accountTransferMapper.updateById(tr);
+                userAccountTransferMapper.updateById(tr);
                 log.info("syn ok transferUUid: {}", tr.getTransferUUid());
             } else {
                 tr.setRetryTimes(tr.getRetryTimes() == null ? 1 : tr.getRetryTimes() + 1);
-                accountTransferMapper.updateById(tr);
+                userAccountTransferMapper.updateById(tr);
                 log.error("syn fail transferUUid: {}", tr.getTransferUUid());
             }
         }

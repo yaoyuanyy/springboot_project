@@ -1,13 +1,12 @@
-package com.okcoin.commons.security.xss;
+package com.yy.demo.web.config.security;
 
 import org.owasp.encoder.Encode;
 
 /**
- * 基于@see org.owasp.encoder.Encode 实现的XssFilter
+ * XssFilter
  *
- * @author okcoin-team
- * @date 2017/11/9
- * @version $Id: $Id
+ * 基于@see org.owasp.encoder.Encode实现
+ *
  */
 public class OwaspFilterPolicy implements FilterPolicy {
     /** {@inheritDoc} */

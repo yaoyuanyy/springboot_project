@@ -1,15 +1,13 @@
-package com.okcoin.exchange.c2c.common.util;
+package com.yy.demo.util;
 
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.SignatureException;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -17,15 +15,8 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.Cipher;
-
-import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * RSA签名,加解密处理
- * Created by dengjiangchuan on 2017/2/7.
  */
 public class RSAUtil {
 
@@ -61,7 +52,7 @@ public class RSAUtil {
 
     /**
      * <p>
-     * 生成密钥�?(公钥和私�?)
+     * 生成密钥 (公钥和私钥 )
      * </p>
      *
      * @return
@@ -81,9 +72,9 @@ public class RSAUtil {
     }
 
     /**
-     * 签名字符�?
+     * 签名字符
      *
-     * @param text       �?要签名的字符�?
+     * @param text        要签名的字符
      * @param privateKey 私钥(BASE64编码)
      * @param charset    编码格式
      * @return 签名结果(BASE64编码)
@@ -107,9 +98,9 @@ public class RSAUtil {
     }
 
     /**
-     * 签名字符�?
+     * 签名字符
      *
-     * @param text      �?要签名的字符�?
+     * @param text      要签名的字符
      * @param sign      客户签名结果
      * @param publicKey 公钥(BASE64编码)
      * @param charset   编码格式
@@ -134,11 +125,39 @@ public class RSAUtil {
     }
 
     /**
+     * <p>
+     * 获取私钥
+     * </p>
+     *
+     * @param keyMap 密钥
+     * @return
+     * @throws Exception
+     */
+    public static String getPrivateKey(Map<String, Object> keyMap) throws Exception {
+        Key key = (Key)keyMap.get(PRIVATE_KEY);
+        return Base64.encodeBase64String(key.getEncoded());
+    }
+
+    /**
+     * <p>
+     * 获取公钥
+     * </p>
+     *
+     * @param keyMap 密钥
+     * @return
+     * @throws Exception
+     */
+    public static String getPublicKey(Map<String, Object> keyMap) throws Exception {
+        Key key = (Key)keyMap.get(PUBLIC_KEY);
+        return Base64.encodeBase64String(key.getEncoded());
+    }
+
+    /**
      * <P>
      * 私钥解密
      * </p>
      *
-     * @param encryptedData 已加密数�?
+     * @param encryptedData 已加密数
      * @param privateKey    私钥(BASE64编码)
      * @return
      * @throws Exception
@@ -156,7 +175,7 @@ public class RSAUtil {
         int offSet = 0;
         byte[] cache;
         int i = 0;
-        // 对数据分段解�?
+        // 对数据分段解
         while (inputLen - offSet > 0) {
             if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
                 cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
@@ -178,7 +197,7 @@ public class RSAUtil {
      * 公钥解密
      * </p>
      *
-     * @param encryptedData 已加密数�?
+     * @param encryptedData 已加密数
      * @param publicKey     公钥(BASE64编码)
      * @return
      * @throws Exception
@@ -196,7 +215,7 @@ public class RSAUtil {
         int offSet = 0;
         byte[] cache;
         int i = 0;
-        // 对数据分段解�?
+        // 对数据分段解
         while (inputLen - offSet > 0) {
             if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
                 cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
@@ -218,7 +237,7 @@ public class RSAUtil {
      * 公钥加密
      * </p>
      *
-     * @param data      源数�?
+     * @param data      源数
      * @param publicKey 公钥(BASE64编码)
      * @return
      * @throws Exception
@@ -228,7 +247,7 @@ public class RSAUtil {
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicK = keyFactory.generatePublic(x509KeySpec);
-        // 对数据加�?
+        // 对数据加
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.ENCRYPT_MODE, publicK);
         int inputLen = data.length;
@@ -236,7 +255,7 @@ public class RSAUtil {
         int offSet = 0;
         byte[] cache;
         int i = 0;
-        // 对数据分段加�?
+        // 对数据分段加
         while (inputLen - offSet > 0) {
             if (inputLen - offSet > MAX_ENCRYPT_BLOCK) {
                 cache = cipher.doFinal(data, offSet, MAX_ENCRYPT_BLOCK);
@@ -258,7 +277,7 @@ public class RSAUtil {
      * 私钥加密
      * </p>
      *
-     * @param data       源数�?
+     * @param data       源数
      * @param privateKey 私钥(BASE64编码)
      * @return
      * @throws Exception
@@ -275,7 +294,7 @@ public class RSAUtil {
         int offSet = 0;
         byte[] cache;
         int i = 0;
-        // 对数据分段加�?
+        // 对数据分段加
         while (inputLen - offSet > 0) {
             if (inputLen - offSet > MAX_ENCRYPT_BLOCK) {
                 cache = cipher.doFinal(data, offSet, MAX_ENCRYPT_BLOCK);
@@ -306,35 +325,7 @@ public class RSAUtil {
         try {
             return content.getBytes(charset);
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("签名过程中出现错�?,指定的编码集不对,您目前指定的编码集是:" + charset);
+            throw new RuntimeException("签名过程中出现错 ,指定的编码集不对,您目前指定的编码集是:" + charset);
         }
-    }
-
-    /**
-     * <p>
-     * 获取私钥
-     * </p>
-     *
-     * @param keyMap 密钥�?
-     * @return
-     * @throws Exception
-     */
-    public static String getPrivateKey(Map<String, Object> keyMap) throws Exception {
-        Key key = (Key)keyMap.get(PRIVATE_KEY);
-        return Base64.encodeBase64String(key.getEncoded());
-    }
-
-    /**
-     * <p>
-     * 获取公钥
-     * </p>
-     *
-     * @param keyMap 密钥�?
-     * @return
-     * @throws Exception
-     */
-    public static String getPublicKey(Map<String, Object> keyMap) throws Exception {
-        Key key = (Key)keyMap.get(PUBLIC_KEY);
-        return Base64.encodeBase64String(key.getEncoded());
     }
 }

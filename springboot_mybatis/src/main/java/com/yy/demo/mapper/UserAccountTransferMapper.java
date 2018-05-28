@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Update;
  * Created by skyler on 2018/5/27 at 上午11:02
  */
 @Mapper
-public interface AccountTransferMapper {
+public interface UserAccountTransferMapper {
 
     @Select("SELECT * FROM user_account_transfer WHERE transfer_uuid = #{transferUUid}")
     UserAccountTransferRecord queryByTransferUUid(String transferUUid);

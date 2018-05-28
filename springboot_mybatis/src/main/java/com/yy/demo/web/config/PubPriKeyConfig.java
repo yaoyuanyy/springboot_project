@@ -12,16 +12,16 @@ import java.util.List;
  **/
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "skyler.url.key")
-public class UrlKeyConfig {
+@ConfigurationProperties(prefix = "skyler.pub-pri.key")
+public class PubPriKeyConfig {
 
     /**
-     * 转账私钥
+     * 私钥
      */
     private String privateKey;
 
     /**
-     * 转账公钥
+     * 公钥
      */
     private String publicKey;
 
@@ -34,7 +34,4 @@ public class UrlKeyConfig {
      * 转出的url
      */
     private String outUrl;
-
-    private List<String> excludeUrls;
-
 }
