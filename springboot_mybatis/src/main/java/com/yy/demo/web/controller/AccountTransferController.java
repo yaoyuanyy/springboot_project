@@ -42,8 +42,7 @@ public class AccountTransferController {
     /**
      * <pre>
      *     参数例子：
-     *     curl -d "userId=1111&&transferUUid=3d9f78ac-5f8d-4af0-9bc3-842f8316a17c&amount=12.3322222&sign=UeR1Wd9JnLt/pqlz6PWFDawLNOY3uwAGGhOXXUM7TjFW09cMgzNvRjry85MDOk1Tfg2DIZMfwaSs3y4LscoasOYH5cRFWeARFTHfNb/E4NK1IIX9v5ceUk76nTiozMOp3ZCmMA280/B%2BKQgd78s52XQBP0p/fzvL8PaCCuhh7l8="
-     *     -X POST http://localhost:8000/v1/accountTransfer/in
+     *     curl -d "userId=1111&&transferUUid=3d9f78ac-5f8d-4af0-9bc3-842f8316a17c&amount=12.3322222&sign=UeR1Wd9JnLt/pqlz6PWFDawLNOY3uwAGGhOXXUM7TjFW09cMgzNvRjry85MDOk1Tfg2DIZMfwaSs3y4LscoasOYH5cRFWeARFTHfNb/E4NK1IIX9v5ceUk76nTiozMOp3ZCmMA280/B%2BKQgd78s52XQBP0p/fzvL8PaCCuhh7l8=" -X POST http://localhost:8000/v1/accountTransfer/in
      *
      *     注意：sign参数中%2B原是+，但是+会被springmvc转成空格，导致验证不通过，所以需要把+转化
      *
