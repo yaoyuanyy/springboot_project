@@ -1,4 +1,4 @@
-package com.okcoin.commons.security.xss;
+package com.yy.demo.web.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
- * XSS过滤器http请求包装类
+ * XSS过滤器http请求主要处理类包装类
  *
- * @author okcoin-team
- * @version $Id: $Id
- * @date 2017-05-30
  */
 @Slf4j
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
@@ -20,13 +17,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private final FilterPolicy filterPolicy;
     private final String excludeUrlPatterns;
 
-    /**
-     * <p>Constructor for XssHttpServletRequestWrapper.</p>
-     *
-     * @param servletRequest     a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param filterPolicy       a {@link FilterPolicy} object.
-     * @param excludeUrlPatterns a {@link java.lang.String} object.
-     */
     public XssHttpServletRequestWrapper(final HttpServletRequest servletRequest,
                                         final FilterPolicy filterPolicy,
                                         final String excludeUrlPatterns) {
@@ -35,9 +25,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         this.excludeUrlPatterns = excludeUrlPatterns;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String[] getParameterValues(final String parameter) {
         final String[] values = super.getParameterValues(parameter);
@@ -54,9 +41,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public String getParameter(final String parameter) {
         final String value = super.getParameter(parameter);
@@ -66,9 +51,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return this.cleanXSS(value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public String getHeader(final String name) {
         final String value = super.getHeader(name);

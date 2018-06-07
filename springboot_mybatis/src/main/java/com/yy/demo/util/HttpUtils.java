@@ -1,8 +1,4 @@
-package com.okcoin.exchange.c2c.common.util;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Map.Entry;
+package com.yy.demo.util;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,9 +8,10 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-/**
- * @author chuping.cui
- */
+import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class HttpUtils {
 
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
@@ -35,7 +32,7 @@ public class HttpUtils {
             formBuilder.add(entry.getKey(), String.valueOf(entry.getValue()));
         }
 
-        Request request = new Request.Builder().header("Referer", "http://www.okex.com").url(url).post(formBuilder.build()).build();
+        Request request = new Request.Builder().header("Referer", "http://www.skyler1.com").url(url).post(formBuilder.build()).build();
 
         okhttp3.Response response = HTTP_CLIENT.newCall(request).execute();
 

@@ -4,7 +4,7 @@ spring:
     url: @spring.datasource.url@
     username: @spring.datasource.username@
     password: @spring.datasource.password@
-    driver-class-name: @spring.datasource.driverlassName@
+    driver-class-name: @spring.datasource.driverclassName@
 #自定义：配置文件AppConfig.java是否开启
   skyler:
     enable: true
@@ -27,4 +27,17 @@ logging:
 
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
+
+skyler:
+  security:
+    xss:
+      policy: owasp
+      url-patterns: /v1/*
+      excludeUrlPatterns: /v1/home/*,/v1/stu/*
+  pub-pri:
+    key:
+      private-key: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAJNqCvIE0E7PvM223FPAnyz616mn2XmD8h/O3RfJtbNec5dZm4J4tJ1z5X0SVazutq2oLBLYPM6dMt+zxJoTEyxWkjv195YCQYmWNr2BPLibJTUiOT7dY0b6QfccFVZekGgRjhP3GX9RYpQAVrVG0eJEB0h/3QUWOfk6u7+ZAg+tAgMBAAECgYAmwqs+F6XuExFBxeMI4oz39rzeDxRPrzHqyym3J4JvN1aNZTJOjA5xmBevWzLL1biS0LVF/zV93jeSOmJnYLyZdFg65E/ZFHXN3hhvOeRUkhPM6fH3EaR4qfka81az7Sqelp87CrThiPpH0X8oS+rWQgrr9U4gogSiU9jO0BkIwQJBAOVVZSWwixK58OYYeVVvRe0DwYg0IidC/E7hHg9gVOSZCMbBrtRFh8a9vQbgNTlNn89wQTOAk2Pi1I8P/QNh818CQQCkjiSXi8anDG9FTGtbSgYx7aYG5ujW/p+M7UD554cBPNfJSSlTjp18cbkWW7uM4DdUe7kXrh+wXE7azql+c8RzAkA1MHklJK0cysN0mniJuCUfs59PV8gUExUxtkSijFUkL9o5PvKtiPLUxWzyC05M3BQUqJR2vXtxz0o9ZBfqkO1BAkB84svun8xSN2OzSj4n+FQfTGc20cRgdroMMHuhrg+N5uk2AGp22cO4EG8SAuiiEACuA4AD8shmBohqE3IbYCz1AkALbomYuzhecIyNBjuJ2PyRLFS5iYGb65NQvF8EErd5jEz6JHOUmMJsCXUGYfA0lq0kXgL+niI9jMEoVA/+OLEh
+      public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTagryBNBOz7zNttxTwJ8s+tepp9l5g/Ifzt0XybWzXnOXWZuCeLSdc+V9ElWs7ratqCwS2DzOnTLfs8SaExMsVpI79feWAkGJlja9gTy4myU1Ijk+3WNG+kH3HBVWXpBoEY4T9xl/UWKUAFa1RtHiRAdIf90FFjn5Oru/mQIPrQIDAQAB
+      in-url: http://localhost:8000/v1/accountTransfer/in
+      out-url:
 

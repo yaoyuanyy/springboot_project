@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface AccountTransferService {
+public interface UserAccountTransferService {
 
     /**
      * 转入

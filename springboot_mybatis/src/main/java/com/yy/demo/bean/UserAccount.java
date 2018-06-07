@@ -1,16 +1,22 @@
 package com.yy.demo.bean;
 
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Description: 用户账户表
+ * Description: 用户账户表 user_account
  * <p></p>
  * <pre></pre>
  * NB.
  * Created by skyler on 2018/5/27 at 上午7:36
  */
-public class user_account {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class UserAccount {
 
 
     /**
@@ -18,27 +24,20 @@ public class user_account {
      */
     private Long id;
     /**
-     *
-     */
-    private Date createdDate;
-    /**
-     *
-     */
-    private Date modifyDate;
-    /**
      * 用户id
      */
     private Long userId;
     /**
      * 可用余额
      */
-    private BigDecimal balance;
+    private BigDecimal useableBalance;
+
     /**
-     * 冻结余额
+     *
      */
-    private BigDecimal frozenBalance;
+    private Date ctime;
     /**
-     * 可提现余额
+     *
      */
-    private BigDecimal balance;
+    private Date utime;
 }
