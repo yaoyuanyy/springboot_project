@@ -5,7 +5,6 @@ import com.google.common.collect.Iterables;
 import com.yy.demo.web.config.security.SecurityProperties;
 import com.yy.demo.web.config.security.XssFilter;
 import org.springframework.beans.BeansException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;

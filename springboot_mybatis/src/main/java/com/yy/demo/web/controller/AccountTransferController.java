@@ -58,9 +58,11 @@ public class AccountTransferController {
     @PostMapping(value = "/in")
     public ResponseResult transferIn(Long userId, String transferUUid, BigDecimal amount, final HttpServletRequest request) {
         signVerify(request);
-        try {
-            this.userAccountTransferService.transferIn(userId, transferUUid, amount);
-        } catch (final DuplicateKeyException e) { }
+//        try {
+//            this.userAccountTransferService.transferIn(userId, transferUUid, amount);
+//        } catch (final DuplicateKeyException e) {
+//            log.error("DuplicateKeyException userId：{}", userId);
+//        }
         return ResponseResult.ok();
     }
 

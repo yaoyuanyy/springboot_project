@@ -8,6 +8,7 @@ import com.yy.demo.config.postprocess.Chinese;
 import com.yy.demo.config.postprocess.MyBeanPostProcessor;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
+import com.yy.demo.web.anno.RequestParamJsonMethodArgumentResolver;
 import com.yy.demo.web.config.WebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -22,7 +23,6 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -162,6 +162,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 //	    resolvers.add(attrbuteArgResolver());
 	    //super.addArgumentResolvers(resolvers);
         argumentResolvers.add(new AttrbuteArgResolver());
+        argumentResolvers.add(requestJsonParamMethodArgumentResolver());
+
+    }
+    @Bean
+    public RequestParamJsonMethodArgumentResolver requestJsonParamMethodArgumentResolver() {
+        return new RequestParamJsonMethodArgumentResolver();
     }
 
     @Bean

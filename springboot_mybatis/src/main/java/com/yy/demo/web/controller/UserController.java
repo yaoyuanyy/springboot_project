@@ -5,16 +5,14 @@ import javax.annotation.Resource;
 import com.yy.demo.web.anno.AttrbuteArg;
 import com.yy.demo.vo.ResponseResult;
 import com.yy.demo.web.anno.Login;
+import com.yy.demo.web.anno.RequestParamJson;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.yy.demo.bean.User;
 import com.yy.demo.service.IUserService;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @Slf4j
@@ -75,6 +73,14 @@ public class UserController {
         log.info("updateSchoolName param schoolName:{} studentId:{}", schoolName, studentId);
 
         userService.updateSchoolName(schoolName, studentId);
+        return ResponseResult.ok();
+    }
+
+    @PostMapping("/updateName")
+    public ResponseResult updateName(@RequestParamJson(name = "name", required = false) String tmpName, long studentId) {
+        log.info("updateName param name:{} studentId:{}", tmpName, studentId);
+
+        userService.updateSchoolName(tmpName, studentId);
         return ResponseResult.ok();
     }
 }
