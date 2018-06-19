@@ -1,6 +1,7 @@
 package com.yy.demo.web.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import com.yy.demo.web.anno.AttrbuteArg;
 import com.yy.demo.vo.ResponseResult;
@@ -43,7 +44,11 @@ public class UserController {
 	@ApiOperation(value = "添加user", httpMethod = "POST", notes = "notes",
             produces = "application/json", consumes = "application/json")
 	@PostMapping("/insert")
-	public ResponseResult insert(@RequestBody User vo) {
+	public ResponseResult insert(@RequestBody User vo, HttpServletRequest request) {
+
+	    log.info(" getParammterValues:{}", request.getParameterNames());
+	    log.info("getParameterMap:{}", request.getParameterMap());
+
         log.info("insert param vo:{}", vo);
 
         int id = userService.insert(vo);
