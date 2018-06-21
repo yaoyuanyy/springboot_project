@@ -5,17 +5,17 @@ spring:
     username: @spring.datasource.username@
     password: @spring.datasource.password@
     driver-class-name: @spring.datasource.driverClassName@
+  # Number of ms to wait before throwing an exception if no connection is available.
+    tomcat:
+      max-wait: @spring.tomcat.max-wait@
+  # Maximum number of active connections that can be allocated from this pool at the same time.
+      max-active: @spring.tomcat.max-active@
+  # Validate the connection before borrowing it from the pool.
+      test-on-borrow: @spring.tomcat.test-on-borrow@
 #自定义：配置文件AppConfig.java是否开启
   skyler:
     enable: true
 
-# Number of ms to wait before throwing an exception if no connection is available.
-    tomcat:
-      max-wait: @spring.tomcat.max-wait@
-# Maximum number of active connections that can be allocated from this pool at the same time.
-      max-active: @spring.tomcat.max-active@
-# Validate the connection before borrowing it from the pool.
-      test-on-borrow: @spring.tomcat.test-on-borrow@
   profiles:
     active: @profileActive@
   kafka:
