@@ -33,7 +33,7 @@ public class UserController {
     /**
      *
      * <pre>
-     * curl -X POST -H 'Content-Type:application/json' -d '{"name":"<script>alert(11)</script>", "mobile":"", "studentId":23, "score":20}' http://localhost:8000/user/insert
+     * curl -X POST -H 'Content-Type:application/json' -d '{"name":"<script>alert(11)</script>", "mobile":"", "studentId":23, "score":20}' http://localhost:8000/v1/user/insert
      *
      * 运行此例子，你会发现js代码存到了数据库中，等取出在页面显示的时候会弹出alert提示框，从而存在xss攻击问题
      * 所以，要加一个xssFilter拦截器，具体逻辑看代码
@@ -57,13 +57,13 @@ public class UserController {
 	}
 
     /**
-     * eq: http://localhost:8000/user/findById?id=3
+     * eq: http://localhost:8000/v1/user/findById?id=3
      * @param id
      * @return
      */
 	@GetMapping("/findById")
     @ApiOperation(value = "添加user", httpMethod = "GET", produces = "application/json")
-    @Login
+    //@Login
 	public ResponseResult findById(long id, @AttrbuteArg("test") String name, ModelMap modelMap) {
         log.info("findById param id:{}", id);
 

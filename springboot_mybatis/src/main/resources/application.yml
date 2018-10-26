@@ -1,17 +1,35 @@
 #profile
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     url: @spring.datasource.url@
     username: @spring.datasource.username@
     password: @spring.datasource.password@
     driver-class-name: @spring.datasource.driverClassName@
-  # Number of ms to wait before throwing an exception if no connection is available.
-    tomcat:
-      max-wait: @spring.tomcat.max-wait@
-  # Maximum number of active connections that can be allocated from this pool at the same time.
-      max-active: @spring.tomcat.max-active@
-  # Validate the connection before borrowing it from the pool.
-      test-on-borrow: @spring.tomcat.test-on-borrow@
+#  # Number of ms to wait before throwing an exception if no connection is available.
+#    tomcat:
+#      max-wait: @spring.tomcat.max-wait@
+#  # Maximum number of active connections that can be allocated from this pool at the same time.
+#      max-active: @spring.tomcat.max-active@
+#  # Validate the connection before borrowing it from the pool.
+#      test-on-borrow: @spring.tomcat.test-on-borrow@
+    initialSize: 5
+    minIdle: 3
+    maxActive: 21
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    ### 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
 #自定义：配置文件AppConfig.java是否开启
   skyler:
     enable: true

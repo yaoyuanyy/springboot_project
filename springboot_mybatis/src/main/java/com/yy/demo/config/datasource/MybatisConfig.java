@@ -3,11 +3,17 @@ package com.yy.demo.config.datasource;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -16,6 +22,18 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 监控url路径: http://localhost:8000/druid/api.html
+ * 参考:
+ * https://segmentfault.com/a/1190000015564484
+ * https://juejin.im/post/5aceec94f265da2395315d68
+ * 字段含义：
+ * https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8
+ */
 @Configuration
 @EnableTransactionManagement
 //@MapperScan("com.yy.demo.mapper")
@@ -23,8 +41,36 @@ public class MybatisConfig {
 
     protected static final String CONFIG_LOCATION = "classpath:mybatis/mybatis-config.xml";
 
-    @Resource	
-    DataSource dataSource;
+    @Bean
+    public ServletRegistrationBean druidStatViewServlet() {
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+        Map<String, String> initParams = new HashMap<>();
+        //　可配的属性都在 StatViewServlet 和其父类下
+        initParams.put("loginUsername", "admin-druid");
+        initParams.put("loginPassword", "111111");
+        servletRegistrationBean.setInitParameters(initParams);
+        return servletRegistrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean druidWebStatFilter() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
+        Map<String, String> initParams = new HashMap<>();
+        initParams.put("exclusions", "*.js,*.css,/druid/*");
+        filterRegistrationBean.setInitParameters(initParams);
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+        return filterRegistrationBean;
+    }
+
+//    @Resource
+//    DataSource dataSource;
+
+
+    @ConfigurationProperties(prefix = "spring.datasource")
+    @Bean
+    public DataSource dataSource() {
+        return new DruidDataSource();
+    }
 	/*@Resource
 	MyDataSourceProperties pros;
 	 
@@ -42,7 +88,7 @@ public class MybatisConfig {
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
     	System.out.println("sqlSessionFactoryBean");
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
+        bean.setDataSource(dataSource());
         //bean.setTypeAliasesPackage("com.yy.demo.bean");
        // bean.setMapperLocations(new ClassPathResource[] {new ClassPathResource("mapper/*.xml")});
 
@@ -75,7 +121,7 @@ public class MybatisConfig {
     @Bean
     public DataSourceTransactionManager transactionManager() {
     	System.out.println("transactionManager");
-        return new DataSourceTransactionManager(dataSource);
+        return new DataSourceTransactionManager(dataSource());
     }
 
     /*//implements TransactionManagementConfigurer
