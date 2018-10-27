@@ -5,19 +5,39 @@ spring:
     username: @spring.datasource.username@
     password: @spring.datasource.password@
     driver-class-name: @spring.datasource.driverlassName@
+    # Number of ms to wait before throwing an exception if no connection is available.
+    tomcat:
+      max-wait: @spring.tomcat.max-wait@
+      # Maximum number of active connections that can be allocated from this pool at the same time.
+      max-active: @spring.tomcat.max-active@
+      # Validate the connection before borrowing it from the pool.
+      test-on-borrow: @spring.tomcat.test-on-borrow@
+
+  profiles:
+    active: @profileActive@
+
+#mybatis 配置
+mybatis:
+  ## Locations of Mapper xml config file
+  mapperLocations: classpath*:com/yy/**/mapper/*.xml
+  ## 实体类包路径 Packages to search for type aliases. (Package delimiters are ",; \t\n")
+  typeAliasesPackage: com.yy.**.bean
+  ## Location of MyBatis xml config file.
+  ## 注意：这个属性与mybatis.configuration二选一
+  config-location: classpath:mybatis/mybatis-config.xml
+  ##  检查 mybatis 配置是否存在，一般命名为 mybatis-config.xml
+  check-config-location: true
+  ## Packages to search for type handlers. (Package delimiters are ",; \t\n")
+  # mybatis.typeHandlersPackage
+  ## Executor type: SIMPLE, REUSE, BATCH 默认是 SIMPLE
+  # mybatis.executorType
+
+
 #自定义：配置文件AppConfig.java是否开启
   skyler:
     enable: true
 
-# Number of ms to wait before throwing an exception if no connection is available.
-    tomcat:
-      max-wait: @spring.tomcat.max-wait@
-# Maximum number of active connections that can be allocated from this pool at the same time.
-      max-active: @spring.tomcat.max-active@
-# Validate the connection before borrowing it from the pool.
-      test-on-borrow: @spring.tomcat.test-on-borrow@
-  profiles:
-    active: @profileActive@
+
 
 server:
   port: @server.port@
