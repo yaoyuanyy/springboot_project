@@ -8,8 +8,29 @@ inside spring boot integrates mybatis via spring-boot-starter-jdbc and mybatis-s
 ```
 
 ## version
-- spring boot:1.5.4
-- mybatis 3.2.5
+- spring boot:1.5.10
+- mybatis 3.4.6
+- mybatis-spring-boot-starter 1.3.2
+- druid-spring-boot-starter 1.1.10
+
+
+## launch the project
+
+```
+$ mvn clean install
+
+profile=env/test
+$ java -jar projectName.jar --spring.profiles.active=profile
+
+$ curl http://localhost:8000/user/findById?id=3
+
+you can get as follow
+
+{"code":0,"msg":"success","data":{"id":3,"studentId":3,"name":"s","mobile":"111","score":0}}
+
+
+```
+
 
 
 ## test1

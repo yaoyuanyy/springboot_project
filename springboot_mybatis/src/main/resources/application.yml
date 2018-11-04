@@ -80,18 +80,7 @@ logging:
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
 
-# actuator监控端点是否打开，默认打开，即不能访问 http://localhost:8000/env等
-management:
-  security:
-    enabled: false
 
-# 关闭所有的端点，除了env info,此效果需要management.security.enabled=false才能生效
-endpoints:
-  env:
-    enabled: true
-  info:
-    enabled: true
-  enabled: false
 
 
 

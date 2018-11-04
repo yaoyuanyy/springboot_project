@@ -3,11 +3,11 @@ management:
   security:
     enabled: false
 
-# 关闭所有的端点，除了env info,此效果需要management.security.enabled=false才能生效
+# 关闭所有的端点，除了env beans,此效果需要management.security.enabled=false才能生效
 endpoints:
   env:
     enabled: true
-  info:
+  beans:
     enabled: true
   enabled: false
 

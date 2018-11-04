@@ -94,7 +94,8 @@
                 -->
 
                 <!--自定义注解 这里只是设置maven profile而不是spring profile
-                , 如果想设置spring profile且引用这里的profile, 需要在application.yml中引用-->
+                    , 如果想设置spring profile且引用这里的profile, 需要在application.yml中引用: profiles.active: @profileActive@
+                -->
                 <profileActive>dev</profileActive>
             </properties>
             <activation>
@@ -106,7 +107,10 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <includes>
-                            <include>application.yml</include>
+                            <!-- 原来的配置为<include>application.yml</include>
+                                这里一定要有通配符，不然后加的配置文件如application-test.yml加载不上，问题还不好查
+                            -->
+                            <include>application*.yml</include>
                         </includes>
                     </resource>
                 </resources>
@@ -126,7 +130,7 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <includes>
-                            <include>application.yml</include>
+                            <include>application*.yml</include>
                         </includes>
                     </resource>
                 </resources>
@@ -135,7 +139,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.artifactId}-${project.parent.version}</finalName>
         <filters>
             <filter>src/main/resources/profile/${profileActive}.properties</filter>
         </filters>
