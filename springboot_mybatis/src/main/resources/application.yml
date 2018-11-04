@@ -1,12 +1,12 @@
-#profile
+
 spring:
   datasource:
     druid:
       ## 基础配置
-      url: @spring.datasource.url@
-      username: @spring.datasource.username@
-      password: @spring.datasource.password@
-      driver-class-name: @spring.datasource.driverlassName@
+      url: @db.url@
+      username: @db.username@
+      password: @db.password@
+      driver-class-name: @db.driverlassName@
 
       ## 连接池配置
       initialSize: 5
@@ -29,14 +29,15 @@ spring:
       # WebStatFilter配置，说明请参考Druid Wiki
       # 是否启用StatFilter默认值true
       web-stat-filter:
-        enabled: true
+        enabled: false
         url-pattern: /*
         exclusions: '*.js,*.css,/druid/*,*.html'
 #        profile-enable:
       # StatViewServlet配置，说明请参考Druid Wiki
       # 是否启用StatViewServlet默认值true
       stat-view-servlet:
-        enabled: true
+        # 如设置成false，则http://localhost:8000/druid/spring.html无法访问，但是接口可以访问：http://localhost:8000/druid/stat
+        enabled: false
 #        url-pattern: /*
         reset-enable: true
         login-username: admin
@@ -78,4 +79,19 @@ logging:
 
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
+
+# actuator监控端点是否打开，默认打开，即不能访问 http://localhost:8000/env等
+management:
+  security:
+    enabled: false
+
+# 关闭所有的端点，除了env info,此效果需要management.security.enabled=false才能生效
+endpoints:
+  env:
+    enabled: true
+  info:
+    enabled: true
+  enabled: false
+
+
 

@@ -1,0 +1,19 @@
+#db:
+#  url: jdbc:mysql://127.0.0.1/jdbc_test?allowMultiQueries=true&useSSL=false
+#  username: root
+### skyler123
+#  password: root123
+#  driverlassName: com.mysql.jdbc.Driver
+#
+#  tomcat:
+#    max-wait: 10000
+#    max-active: 50
+#    test-on-borrow: true
+#
+#server:
+#  port: 8000
+#
+#logging:
+#  path: logs
+#
+#debug: true
