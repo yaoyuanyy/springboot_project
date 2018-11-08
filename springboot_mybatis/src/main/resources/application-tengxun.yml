@@ -1,0 +1,45 @@
+# actuator监控端点是否打开，默认打开，即不能访问 http://localhost:8000/env等
+management:
+  security:
+    enabled: false
+
+# 关闭所有的端点，除了env beans,此效果需要management.security.enabled=false才能生效
+endpoints:
+  env:
+    enabled: true
+  beans:
+    enabled: true
+  enabled: false
+
+logging:
+  level:
+    root: info
+    com.yy.demo: debug
+    org.springframework.boot: trace
+    org.springframework.beans: trace
+    org.springframework.context: trace
+
+
+
+
+
+
+#db:
+#  url: jdbc:mysql://127.0.0.1/jdbc_test?allowMultiQueries=true&useSSL=false
+#  username: root
+### skyler123
+#  password: root123
+#  driverlassName: com.mysql.jdbc.Driver
+#
+#  tomcat:
+#    max-wait: 10000
+#    max-active: 50
+#    test-on-borrow: true
+#
+#server:
+#  port: 8000
+#
+#logging:
+#  path: logs
+#
+#debug: true

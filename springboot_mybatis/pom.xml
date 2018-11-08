@@ -3,7 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yy</groupId>
     <artifactId>springboot_mybatis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <description>spring boot start</description>
 
 
@@ -86,7 +87,7 @@
     <profiles>
         <!--开发环境-->
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <properties>
                 <!--
                     NOTE: difference between 'maven profile' and 'spring profile'
@@ -96,7 +97,7 @@
                 <!--自定义注解 这里只是设置maven profile而不是spring profile
                     , 如果想设置spring profile且引用这里的profile, 需要在application.yml中引用: profiles.active: @profileActive@
                 -->
-                <profileActive>dev</profileActive>
+                <profileActive>local</profileActive>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -117,12 +118,52 @@
             </build>
         </profile>
 
-        <!--测试环境-->
+        <!--dev-->
         <profile>
-            <id>test</id>
+            <id>dev</id>
             <properties>
                 <!--自定义注解-->
-                <profileActive>test</profileActive>
+                <profileActive>dev</profileActive>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>application*.yml</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--阿里云-->
+        <profile>
+            <id>aliyun</id>
+            <properties>
+                <!--自定义注解-->
+                <profileActive>aliyun</profileActive>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>application*.yml</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--腾讯云-->
+        <profile>
+            <id>tengxun</id>
+            <properties>
+                <!--自定义注解-->
+                <profileActive>tengxun</profileActive>
             </properties>
             <build>
                 <resources>
@@ -138,8 +179,55 @@
         </profile>
     </profiles>
 
+
+    <!--  如果想发布项目到nexus仓库  -->
+    <!-- 这里的id必须和setting.xml文件中server的id值一一保持一致 -->
+    <distributionManagement>
+        <!-- Release包的管理 deploy打包时的version需要没有Snapshot字样 -->
+        <repository>
+            <id>releases</id>
+            <url>http://47.98.189.37:8081/repository/skyler-release/</url>
+        </repository>
+        <!-- Snapshot包的管理 -->
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://47.98.189.37:8081/repository/skyler-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- nexus代理中央仓库配置 -->
+    <!-- 既可以放在setting.xml中(表示全局配置)，也可以放在pom.xml中(表示此应用配置) -->
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>nexus</id>-->
+            <!--<name>Nexus Repository</name>-->
+            <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
+            <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+        <!--</repository>-->
+    <!--</repositories>-->
+    <!--<pluginRepositories>-->
+        <!--<pluginRepository>-->
+            <!--<id>nexus</id>-->
+            <!--<name>Nexus Plugin Repository</name>-->
+            <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
+            <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+        <!--</pluginRepository>-->
+    <!--</pluginRepositories>-->
+
     <build>
-        <finalName>${project.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <filters>
             <filter>src/main/resources/profile/${profileActive}.properties</filter>
         </filters>
@@ -170,13 +258,31 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <!-- skip=true表示跳过默认deploy插件的执行,即deploy时会跳过本module,多用于多module排除某个module的情形 -->
+                <!--<configuration>-->
+                    <!--<skip>true</skip>-->
+                <!--</configuration>-->
+            </plugin>
+            <!-- 打包源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <!-- attach:表示打jar包同时是否打源码jar包. 默认为true -->
                 <configuration>
-                    <skip>true</skip>
+                    <attach>true</attach>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <!-- 去掉打不了源码jar包 -->
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
     </build>
-
 
 </project>
