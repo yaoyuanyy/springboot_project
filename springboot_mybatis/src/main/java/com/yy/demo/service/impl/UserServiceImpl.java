@@ -20,9 +20,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 public class UserServiceImpl implements IUserService {
 
     private static int iii=0;
-
-    @Resource
-    private DataSourceTransactionManager manager;
+//
+//    @Resource
+//    private DataSourceTransactionManager manager;
 
 	@Resource
 	private UserMapper userMapper;

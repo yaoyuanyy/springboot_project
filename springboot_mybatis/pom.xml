@@ -42,6 +42,24 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
         </dependency>
+        <!-- 添加prometheus监控 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+        <!--</dependency>-->
+
+        <!-- Monitoring endpoint - Micrometer + Prometheus -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-spring-legacy</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -51,6 +69,11 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>1.3.2</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>io.prometheus</groupId>-->
+        <!--<artifactId>simpleclient_spring_boot</artifactId>-->
+        <!--<version>0.1.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -81,7 +104,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.7.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.yy</groupId>
+            <artifactId>test-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -198,32 +225,32 @@
     <!-- nexus代理中央仓库配置 -->
     <!-- 既可以放在setting.xml中(表示全局配置)，也可以放在pom.xml中(表示此应用配置) -->
     <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Nexus Repository</name>-->
-            <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
-            <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-            <!--</releases>-->
-        <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Nexus Repository</name>-->
+    <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
+    <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--</snapshots>-->
+    <!--<releases>-->
+    <!--<enabled>true</enabled>-->
+    <!--</releases>-->
+    <!--</repository>-->
     <!--</repositories>-->
     <!--<pluginRepositories>-->
-        <!--<pluginRepository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Nexus Plugin Repository</name>-->
-            <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
-            <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-            <!--</releases>-->
-        <!--</pluginRepository>-->
+    <!--<pluginRepository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Nexus Plugin Repository</name>-->
+    <!--<url>http://47.98.189.37:8081/repository/skyler-group/</url>-->
+    <!--&lt;!&ndash;snapshots默认是关闭的,需要开启  &ndash;&gt;-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--</snapshots>-->
+    <!--<releases>-->
+    <!--<enabled>true</enabled>-->
+    <!--</releases>-->
+    <!--</pluginRepository>-->
     <!--</pluginRepositories>-->
 
     <build>
@@ -260,7 +287,7 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <!-- skip=true表示跳过默认deploy插件的执行,即deploy时会跳过本module,多用于多module排除某个module的情形 -->
                 <!--<configuration>-->
-                    <!--<skip>true</skip>-->
+                <!--<skip>true</skip>-->
                 <!--</configuration>-->
             </plugin>
             <!-- 打包源码插件 -->

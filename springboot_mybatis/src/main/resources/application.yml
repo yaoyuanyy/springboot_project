@@ -1,5 +1,8 @@
 
+
 spring:
+  application:
+    name: springboot-mybatis
   datasource:
     druid:
       ## 基础配置
@@ -79,8 +82,4 @@ logging:
 
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
-
-
-
-
 

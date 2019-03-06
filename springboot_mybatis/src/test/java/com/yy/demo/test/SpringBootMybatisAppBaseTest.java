@@ -12,7 +12,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class AppBaseTest {
+public class SpringBootMybatisAppBaseTest {
 	
 	@Test
 	public void test1() {

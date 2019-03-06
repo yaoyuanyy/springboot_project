@@ -1,9 +1,11 @@
 package com.yy.demo.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.yy.demo.bean.User;
 
+@Mapper
 public interface UserMapper {
 
 	int insert(User user);

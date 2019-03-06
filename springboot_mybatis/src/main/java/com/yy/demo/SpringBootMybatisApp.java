@@ -8,11 +8,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class App  {
+public class SpringBootMybatisApp {
     ApplicationContext applicationContext;
 
 	 public static void main(String[] args) throws Exception {
-         ApplicationContext springApplication= SpringApplication.run(App.class, args);
+         ApplicationContext springApplication= SpringApplication.run(SpringBootMybatisApp.class, args);
          MyJavaBean myJavaBean = (MyJavaBean)springApplication.getBean("myJavaBean");
          System.out.println("@& getAge:"+myJavaBean.getAge());
          System.out.println("@& getDesc:"+myJavaBean.getDesc());

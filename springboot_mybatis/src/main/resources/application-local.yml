@@ -4,12 +4,14 @@ management:
     enabled: false
 
 # 关闭所有的端点，除了env info,此效果需要management.security.enabled=false才能生效
-endpoints:
-  env:
-    enabled: true
-  info:
-    enabled: true
-  enabled: false
+#endpoints:
+#  env:
+#    enabled: true
+#  info:
+#    enabled: true
+#  prometheus:
+#    enabled: true
+#  enabled: true
 
 logging:
   level:
