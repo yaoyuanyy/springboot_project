@@ -2,6 +2,7 @@ package com.yy.demo.service.impl;
 
 import javax.annotation.Resource;
 
+import com.yy.demo.config.datasource.DS;
 import com.yy.demo.mapper.StudentMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.cache.TransactionalCacheManager;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
     @Transactional(rollbackFor = Throwable.class)
+    @DS(value = "master")
 	public int insert(User user) {
         int count = userMapper.insert(user);
         // 验证事务是否生效
@@ -40,6 +42,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+    @DS(value = "slave1")
 	public User fingById(long id) {
 		return userMapper.findById(id);
 	}

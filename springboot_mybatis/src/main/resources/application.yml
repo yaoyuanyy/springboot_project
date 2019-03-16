@@ -4,49 +4,59 @@ spring:
   application:
     name: springboot-mybatis
   datasource:
-    druid:
-      ## 基础配置
+    master:
       url: @db.url@
       username: @db.username@
       password: @db.password@
       driver-class-name: @db.driverlassName@
-
-      ## 连接池配置
-      initialSize: 5
-      minIdle: 3
-      maxActive: 21
-      maxWait: 60000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: SELECT 1 FROM DUAL
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      ## 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-      filters: stat,wall,log4j
-      maxPoolPreparedStatementPerConnectionSize: 20
-      useGlobalDataSourceStat: true
-      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-      ## 监控配置
-      # WebStatFilter配置，说明请参考Druid Wiki
-      # 是否启用StatFilter默认值true
-      web-stat-filter:
-        enabled: false
-        url-pattern: /*
-        exclusions: '*.js,*.css,/druid/*,*.html'
-#        profile-enable:
-      # StatViewServlet配置，说明请参考Druid Wiki
-      # 是否启用StatViewServlet默认值true
-      stat-view-servlet:
-        # 如设置成false，则http://localhost:8000/druid/spring.html无法访问，但是接口可以访问：http://localhost:8000/druid/stat
-        enabled: false
+    slave1:
+      url: @db.url@
+      username: @db.username@
+      password: @db.password@
+      driver-class-name: @db.driverlassName@
+#    druid:
+#      ## 基础配置
+#      url: @db.url@
+#      username: @db.username@
+#      password: @db.password@
+#      driver-class-name: @db.driverlassName@
+#
+#      ## 连接池配置
+#      initialSize: 5
+#      minIdle: 3
+#      maxActive: 21
+#      maxWait: 60000
+#      timeBetweenEvictionRunsMillis: 60000
+#      minEvictableIdleTimeMillis: 300000
+#      validationQuery: SELECT 1 FROM DUAL
+#      testWhileIdle: true
+#      testOnBorrow: false
+#      testOnReturn: false
+#      poolPreparedStatements: true
+#      ## 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#      filters: stat,wall,log4j
+#      maxPoolPreparedStatementPerConnectionSize: 20
+#      useGlobalDataSourceStat: true
+#      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#      ## 监控配置
+#      # WebStatFilter配置，说明请参考Druid Wiki
+#      # 是否启用StatFilter默认值true
+#      web-stat-filter:
+#        enabled: false
 #        url-pattern: /*
-        reset-enable: true
-        login-username: admin
-        login-password: 123456
-#        allow:
-#        deny:
+#        exclusions: '*.js,*.css,/druid/*,*.html'
+##        profile-enable:
+#      # StatViewServlet配置，说明请参考Druid Wiki
+#      # 是否启用StatViewServlet默认值true
+#      stat-view-servlet:
+#        # 如设置成false，则http://localhost:8000/druid/spring.html无法访问，但是接口可以访问：http://localhost:8000/druid/stat
+#        enabled: false
+##        url-pattern: /*
+#        reset-enable: true
+#        login-username: admin
+#        login-password: 123456
+##        allow:
+##        deny:
 
   profiles:
     active: @profileActive@
@@ -68,7 +78,7 @@ mybatis:
   # mybatis.executorType
 
 
-#自定义：配置文件AppConfig.java是否开启
+#自定义：配置文件AppConfig.class是否开启
   skyler:
     enable: true
 

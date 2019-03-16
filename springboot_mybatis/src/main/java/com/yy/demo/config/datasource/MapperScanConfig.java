@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@MapperScan("com.yy.demo.mapper")
+//@Configuration
+//@MapperScan("com.yy.demo.mapper")
 public class MapperScanConfig {
 
 //  @Bean

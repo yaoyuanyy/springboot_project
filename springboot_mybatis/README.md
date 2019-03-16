@@ -33,13 +33,14 @@ you can get as follow
 ```
 
 ## git分支及说明
+NB. 可以使用git reflog查看分支的信息
 ```markdown
+master：基础分支
 feature-auth_sign: 接口鉴权认证？ 
 feature-druid-monitor-1026: 增加druid管理监控
-feature-druid-starter-1027：替换成
-feature-mybatis-starter-1027
-master：基础分支
-
+feature-mybatis-starter-1027：替换mybatis为mybatis-spring-boot-starter
+feature-druid-starter-1027：替换druid为druid-spring-boot-starter，并增加了micrometer、prometheus监控集成
+dynamic-datasource-20190317: 增加数据源动态配置
 
 ```
 
@@ -188,5 +189,11 @@ registry.addResourceHandler("swagger-ui.html")
 3.
 启动项目，访问：http://localhost:8000/swagger-ui.html，查看页面结果
 此时会生成粗略的文档，要想生成细颗粒度的文档，具体参见代码controller类控制
+
+```
+
+## 动态数据源配置
+```markdown
+第
 
 ```
