@@ -1,4 +1,5 @@
 
+
 # springboot_mybatis
 ```
 this is a simple web project demo with RESTFUL style which contains spring boot,mybatis.
@@ -31,9 +32,19 @@ you can get as follow
 
 ```
 
+## git分支及说明
+```markdown
+feature-auth_sign: 接口鉴权认证？ 
+feature-druid-monitor-1026: 增加druid管理监控
+feature-druid-starter-1027：替换成
+feature-mybatis-starter-1027
+master：基础分支
 
 
-## test1
+```
+
+
+## @Transactional功能实测
 两个线程同时访问一个带有@Transactional的service方法的情况
 - 实验代码：com.yy.demo.service.impl.UserServiceImpl.updateSchoolName
 

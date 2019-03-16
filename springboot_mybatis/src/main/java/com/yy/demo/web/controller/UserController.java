@@ -59,6 +59,13 @@ public class UserController {
 		return ResponseResult.ok(user);
 	}
 
+	/**
+	 * http://localhost:8000/user/updateSchoolName?schoolName=test&studentId=3
+	 *
+	 * @param schoolName
+	 * @param studentId
+	 * @return
+	 */
     @GetMapping("/updateSchoolName")
     public ResponseResult updateSchoolName(String schoolName, long studentId) {
         log.info("updateSchoolName param schoolName:{} studentId:{}", schoolName, studentId);

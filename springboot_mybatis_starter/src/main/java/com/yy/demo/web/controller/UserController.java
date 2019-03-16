@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.yy.demo.bean.User;
 import com.yy.demo.service.IUserService;
-import com.yy.vo.UserVo;
 
 @RestController
 @RequestMapping("/user")
