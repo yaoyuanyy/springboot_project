@@ -76,12 +76,6 @@ public class UserServiceImpl implements IUserService {
         System.out.println("----");
         User user = userMapper.fingByStudentId(studentId);
         System.out.println("studentId:"+studentId+" schoolName:"+schoolName);
-        try {
-            Thread.sleep(1000*10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("sleep xing le");
 
         studentMapper.updateSchoolName(schoolName, user.getStudentId());
     }

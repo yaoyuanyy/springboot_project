@@ -1,6 +1,7 @@
 package com.yy.demo.web.controller;
 
 import javax.annotation.Resource;
+import javax.management.RuntimeMBeanException;
 
 import com.yy.demo.web.anno.AttrbuteArg;
 import com.yy.demo.vo.ResponseResult;
@@ -8,6 +9,7 @@ import com.yy.demo.web.anno.Login;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,11 +61,21 @@ public class UserController {
 		return ResponseResult.ok(user);
 	}
 
+	/**
+	 * http://localhost:8000/user/updateSchoolName?schoolName=vl&studentId=3
+	 *
+	 * @param schoolName
+	 * @param studentId
+	 * @return
+	 */
     @GetMapping("/updateSchoolName")
+	@Transactional(rollbackFor = Exception.class)
     public ResponseResult updateSchoolName(String schoolName, long studentId) {
         log.info("updateSchoolName param schoolName:{} studentId:{}", schoolName, studentId);
 
         userService.updateSchoolName(schoolName, studentId);
+
+        //int i = 10/0;
         return ResponseResult.ok();
     }
 }
