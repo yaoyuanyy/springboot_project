@@ -44,6 +44,11 @@ server:
 
 logging:
   path: @logging.path@
+  level:
+    root: debug
+    org:
+      springframework:
+        transaction: trace
 
 #打印自动配置(*AutoConfiguration)信息
 debug: @debug@
