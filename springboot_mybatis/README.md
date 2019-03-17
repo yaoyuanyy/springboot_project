@@ -194,6 +194,7 @@ registry.addResourceHandler("swagger-ui.html")
 
 ## 动态数据源配置
 ```markdown
-第
+
+参考：https://zhuanlan.zhihu.com/p/47204637
 
 ```

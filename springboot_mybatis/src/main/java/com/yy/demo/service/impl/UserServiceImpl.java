@@ -41,6 +41,18 @@ public class UserServiceImpl implements IUserService {
 		return count;
 	}
 
+    @Override
+    @DS(value = "master")
+    @Transactional(rollbackFor = Throwable.class)
+    public void updateSchoolName(String schoolName, long studentId) {
+        System.out.println("----");
+        User user = userMapper.fingByStudentId(studentId);
+        System.out.println("studentId:"+studentId+" schoolName:"+schoolName);
+
+        studentMapper.updateSchoolName(schoolName, user.getStudentId());
+        throw new RuntimeException("dfdf");
+    }
+
 	@Override
     @DS(value = "slave1")
 	public User fingById(long id) {
@@ -72,17 +84,4 @@ public class UserServiceImpl implements IUserService {
         securityManager.checkExit(1);
         return null;
     }
-
-    @Override
-    @Transactional(rollbackFor = Throwable.class)
-    public void updateSchoolName(String schoolName, long studentId) {
-        System.out.println("----");
-        User user = userMapper.fingByStudentId(studentId);
-        System.out.println("studentId:"+studentId+" schoolName:"+schoolName);
-
-        studentMapper.updateSchoolName(schoolName, user.getStudentId());
-        // throw new RuntimeException("dfdf");
-    }
-
-
 }

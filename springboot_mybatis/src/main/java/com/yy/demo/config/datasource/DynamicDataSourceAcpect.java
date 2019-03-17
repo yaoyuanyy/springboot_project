@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -22,12 +23,19 @@ import java.util.Objects;
  * <p>
  * Created by skyler on 2019-03-16 at 23:15
  */
-@Configuration
+@Component
 @Aspect
 @Slf4j
 public class DynamicDataSourceAcpect {
 
-    @Before(value = "@annotation(DS)")
+    public DynamicDataSourceAcpect() {
+        log.info("DynamicDataSourceAcpect constractor");
+    }
+
+    @Pointcut(value = "@annotation(DS)")
+    public void serverPointCut(){}
+
+    @Before(value = "serverPointCut()")
     public void handle(JoinPoint joinPoint){
         // 目标类
         Class sourceClass = joinPoint.getTarget().getClass();
@@ -52,7 +60,7 @@ public class DynamicDataSourceAcpect {
     }
 
 
-    @After(value = "@annotation(DS)")
+    @After(value = "serverPointCut()")
     public void afterHandle(){
         DataSourceContextHolder.clear();
     }
