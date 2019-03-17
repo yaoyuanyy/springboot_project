@@ -15,8 +15,8 @@ public class ResponseResult<T> implements Serializable {
     private String msg;
     private T data;
 
-    private static final ResponseResult ok = new ResponseResult(0, "success", new Object());
-    private static final ResponseResult fail = new ResponseResult(1, "fail", new Object());
+    private static final ResponseResult ok = new ResponseResult(0, "success", null);
+    private static final ResponseResult fail = new ResponseResult(1, "fail", "system exception");
 
     public static ResponseResult ok() {
         return ok;

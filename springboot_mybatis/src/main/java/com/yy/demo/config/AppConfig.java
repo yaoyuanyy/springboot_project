@@ -4,6 +4,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.yy.demo.config.postprocess.Chinese;
 import com.yy.demo.config.postprocess.MyBeanPostProcessor;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
@@ -114,7 +115,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         //converters.add(fastJsonHttpMessageConverter4());
-        //converters.add(mappingJackson2HttpMessageConverter());
+        converters.add(mappingJackson2HttpMessageConverter());
     }
 
     /**
@@ -145,6 +146,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
         converter.setObjectMapper(mapper);
         return converter;

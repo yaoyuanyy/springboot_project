@@ -24,7 +24,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseResult handler(Exception e){
-        log.error("Exception: {}",e.getMessage());
+        log.error("ExceptionsHandler Exception: {}",e.getMessage());
         if (e instanceof LoginException){
 
         }
