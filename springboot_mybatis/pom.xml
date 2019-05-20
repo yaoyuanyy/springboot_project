@@ -17,6 +17,8 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <docker.image.prefix>springboot_demo</docker.image.prefix>
+
     </properties>
 
     <dependencies>
@@ -36,6 +38,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -106,7 +112,28 @@
                 </resources>
             </build>
         </profile>
-
+        <!--测试环境-->
+        <profile>
+            <id>local</id>
+            <properties>
+                <!--自定义注解-->
+                <profileActive>local</profileActive>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <!-- 原来的配置为<include>application.yml</include>
+                                这里一定要有通配符，不然后加的配置文件如application-test.yml加载不上，问题还不好查
+                            -->
+                            <include>application*.yml</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
         <!--测试环境-->
         <profile>
             <id>test</id>
@@ -132,7 +159,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <filters>
             <filter>src/main/resources/profile/${profileActive}.properties</filter>
         </filters>
@@ -165,6 +192,39 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Docker maven plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <!-- 打包的image名称 -->
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!-- Dockerfile文件的位置，以项目的 root 目录为根节点，建议到单独建立一个目录。位置非固定，随意指定，如：./src/docker/-->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <!-- 远程docker的api地址，这里为我的linux开发机地址-->
+                    <dockerHost>http://47.98.189.37:2375</dockerHost>
+                    <!-- image tag，可以指定多个，不声明默认即latest-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <!-- 执行构建docker镜像的时候需要哪些文件，即Dockerfile和项目jar和指定他们的位置-->
+                    <resources>
+                        <resource>
+                            <!--这里指定的文件是target中的jar文件 -->
+                            <!--
+                                ${project.build.directory} 表示项目项目构建输出目录，默认为 ${basedir}/target
+                                ${project.build.filename} 表示项目打包输出文件的名称，默认为 ${project.artifactId}-${project.version}
+                            -->
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>

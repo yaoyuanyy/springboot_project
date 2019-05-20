@@ -1,0 +1,29 @@
+server:
+  port: 2372
+
+## 端点控制。注意：此端点配置仅用于开发环境
+#management:
+#  endpoints:
+#    enabled-by-default: true
+#    jmx:
+#      exposure:
+#        exclude: beans,info
+#        include: '*'
+#    web:
+#      exposure:
+#        exclude: beans
+#        include: '*'
+
+management:
+  security:
+    enabled: false
+
+# jdbc:mysql://localhost/jdbc_test?allowMultiQueries=true&useSSL=false
+DATABASE_HOST: localhost
+DATABASE_PORT: 3306
+DATABASE_NAME: jdbc_test
+DATABASE_USER: root
+DATABASE_PASSWORD: root123
+
+
+
