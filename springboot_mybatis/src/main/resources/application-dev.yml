@@ -1,2 +1,6 @@
 server:
   port: 2371
+
+management:
+  security:
+    enabled: false
