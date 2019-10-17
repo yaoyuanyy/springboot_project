@@ -11,4 +11,5 @@
 *.iml
 /logs/
 .DS_Store
+/cglib_proxy
 
