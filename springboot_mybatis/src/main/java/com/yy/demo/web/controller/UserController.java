@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import com.yy.demo.bean.User;
 import com.yy.demo.service.IUserService;
 
+import java.io.FileNotFoundException;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -55,7 +57,7 @@ public class UserController {
 	public ResponseResult findById(long id, @AttrbuteArg("test") String name, ModelMap modelMap) {
         log.info("findById param id:{}", id);
 
-        User user = userService.fingById(id);
+        User user = userService.findById(id);
 		log.info("user:{}", user);
         System.out.println("ll: "+modelMap.get("ll"));
 		return ResponseResult.ok(user);
@@ -69,8 +71,8 @@ public class UserController {
 	 * @return
 	 */
     @GetMapping("/updateSchoolName")
-	@Transactional(rollbackFor = Exception.class)
-    public ResponseResult updateSchoolName(String schoolName, long studentId) {
+	//@Transactional(rollbackFor = Exception.class)
+    public ResponseResult updateSchoolName(String schoolName, long studentId) throws FileNotFoundException {
         log.info("updateSchoolName param schoolName:{} studentId:{}", schoolName, studentId);
 
         userService.updateSchoolName(schoolName, studentId);
@@ -78,4 +80,27 @@ public class UserController {
         //int i = 10/0;
         return ResponseResult.ok();
     }
+
+
+	public static void main(String[] args) {
+		try{
+			output();
+		}catch (Exception e){
+			log.error("test 场景 ERROR:",e);
+		}
+	}
+
+	private static void output() {
+		out1();
+	}
+
+	private static void out1() {
+		out2();
+	}
+	private static void out2() {
+		out();
+	}
+	private static void out() {
+		int i = 10/0;
+	}
 }

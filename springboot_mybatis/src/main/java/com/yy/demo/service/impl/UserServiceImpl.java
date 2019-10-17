@@ -16,19 +16,24 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.io.FileNotFoundException;
+
 @Service
 public class UserServiceImpl implements IUserService {
 
     private static int iii=0;
-
-    @Resource
-    private DataSourceTransactionManager manager;
+//
+//    @Resource
+//    private DataSourceTransactionManager manager;
 
 	@Resource
 	private UserMapper userMapper;
 
     @Resource
     private StudentMapper studentMapper;
+
+    @Resource
+    private UserServiceImpl2 userServiceImpl2;
 
 	@Override
     @Transactional(rollbackFor = Throwable.class)
@@ -40,19 +45,22 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User fingById(long id) {
+	public User findById(long id) {
 		return userMapper.findById(id);
 	}
+
+    private User PrivateFindById(long id) {
+        return userMapper.findById(id);
+    }
 
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public int updateScore(long score, long id) {
 
-        String name = TransactionSynchronizationManager.getCurrentTransactionName();
-        System.out.println("--- TransactionName:"+name);
+//        String name = TransactionSynchronizationManager.getCurrentTransactionName();
+//        System.out.println("--- TransactionName:"+name);
 
-        System.out.println(iii++);
         int count = userMapper.updateScore(iii, id);
         try {
             Thread.sleep(1000*20);
@@ -65,14 +73,25 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User fingByStudentId(long studentId) {
         User user = userMapper.fingByStudentId(studentId);
-        SecurityManager securityManager = System.getSecurityManager();
-        securityManager.checkExit(1);
-        return null;
+        return user;
     }
 
     @Override
+    @Transactional
+    public void updateSchoolName(String schoolName, long studentId) throws FileNotFoundException {
+        System.out.println("----");
+
+        //throw new FileNotFoundException("ff");
+        userServiceImpl2.updateScore(11L,11);
+
+        User user = userMapper.fingByStudentId(studentId);
+        System.out.println("studentId:"+studentId+" schoolName:"+schoolName);
+
+        studentMapper.updateSchoolName(schoolName, user.getStudentId());
+    }
+
     @Transactional(rollbackFor = Throwable.class)
-    public void updateSchoolName(String schoolName, long studentId) {
+    protected void privateUpdateSchoolName(String schoolName, long studentId) {
         System.out.println("----");
         User user = userMapper.fingByStudentId(studentId);
         System.out.println("studentId:"+studentId+" schoolName:"+schoolName);

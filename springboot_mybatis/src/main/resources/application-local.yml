@@ -27,3 +27,7 @@ DATABASE_PASSWORD: root123
 
 
 
+endpoints:
+  health:
+    enabled: true
+    path: /health_yy

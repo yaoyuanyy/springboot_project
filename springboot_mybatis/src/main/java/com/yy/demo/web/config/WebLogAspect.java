@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * Created by skyler on 2017/10/18
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class WebLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -1,6 +1,7 @@
 package com.yy.demo.task;
 
 import com.yy.demo.service.IUserService;
+import com.yy.demo.service.impl.UserServiceImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ import java.util.concurrent.Executors;
 public class Task {
 
     @Resource
-    private IUserService userService;
+    private UserServiceImpl userServiceImpl;
 
     //@Scheduled(initialDelay= 1000, fixedDelay = 1000*1000)
     public void updateScore() {
@@ -27,7 +28,7 @@ public class Task {
         Executor executor = Executors.newFixedThreadPool(10);
         for (int i : new int[]{1,2,3}) {
             executor.execute(() -> {
-                userService.updateScore(score, 2);
+                userServiceImpl.updateScore(score, 2);
             });
         }
     }
