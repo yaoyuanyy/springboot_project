@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.findById(id);
 	}
 
-    private User PrivateFindById(long id) {
+    private User privateFindById(long id) {
         return userMapper.findById(id);
     }
 
@@ -71,7 +71,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User fingByStudentId(long studentId) {
+    public User findByStudentId(long studentId) {
         User user = userMapper.fingByStudentId(studentId);
         return user;
     }

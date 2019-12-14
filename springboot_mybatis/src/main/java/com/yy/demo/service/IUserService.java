@@ -12,7 +12,7 @@ public interface IUserService {
 
     int updateScore(long score, long id);
 
-    User fingByStudentId(long studentId);
+    User findByStudentId(long studentId);
 
     void updateSchoolName(String schoolName, long studentId) throws FileNotFoundException;
 }
