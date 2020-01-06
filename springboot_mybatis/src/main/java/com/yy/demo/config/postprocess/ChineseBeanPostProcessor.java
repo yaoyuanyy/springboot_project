@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class MyBeanPostProcessor implements BeanPostProcessor{
+public class ChineseBeanPostProcessor implements BeanPostProcessor{
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         log.info("postProcess Before Initialization-> @@ bean:{} beanName:{}",bean.getClass().getName(), beanName);
@@ -26,7 +26,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor{
         log.info("postProcess After Initialization-> @@ bean:{} beanName:{}",bean.getClass().getName(), beanName);
         if (bean instanceof Chinese) {
             Chinese chinese = (Chinese) bean;
-            chinese.setName("MyBeanPostProcessor chinese setName");
+            chinese.setName("ChineseBeanPostProcessor chinese setName");
         }
         return bean;
     }

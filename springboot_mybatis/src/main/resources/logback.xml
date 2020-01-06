@@ -3,44 +3,44 @@
 	<!-- <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
 	<property name="LOG_PATH" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}" />
 	<!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
-<!--	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--		<encoder>-->
-<!--            <pattern>[%-5level]|[%thread]|%X{client}|%X{trace_id}|%d{HH:mm:ss}|%logger =>  %replace(%msg %ex{2}%n){'\n', ''}</pattern>-->
-<!--		</encoder>-->
-<!--	</appender>-->
-    	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-                <providers class="net.logstash.logback.composite.loggingevent.LoggingEventJsonProviders">
-                    <pattern>
-                        <pattern>
-                            {
-                            "level":"%level",
-                            "thread":"%thread",
-                            "client":"%X{client}",
-                            "trace_id":"%X{trace_id}",
-                            "date":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
-                            "logger":"%logger",
-                            "msg":"%msg",
-                            "detail_error":"%ex"
-<!--                            "stack_trace":"%stack_trace"-->
-                            }
-                        </pattern>
-                    </pattern>
-<!--                    <stackTrace>-->
-<!--                        <throwableConverter class="ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter">-->
-<!--                            <maxDepthPerThrowable>30</maxDepthPerThrowable>-->
-<!--                            <maxLength>2048</maxLength>-->
-<!--                            <shortenedClassNameLength>20</shortenedClassNameLength>-->
-<!--                            <exclude>^sun\.reflect\..*\.invoke</exclude>-->
-<!--                            <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>-->
-<!--                            <evaluator class="myorg.MyCustomEvaluator"/>-->
-<!--                            <rootCauseFirst>true</rootCauseFirst>-->
-<!--                        </throwableConverter>-->
-<!--                    </stackTrace>-->
-                </providers>
-<!--                <charset>UTF-8</charset>-->
-            </encoder>
-    	</appender>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+            <pattern>[%-5level]|[%thread]|%X{client}|%X{trace_id}|%d{HH:mm:ss}|%logger =>  %replace(%msg %ex{2}%n){'\n', ''}</pattern>
+		</encoder>
+	</appender>
+<!--    	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
+<!--                <providers class="net.logstash.logback.composite.loggingevent.LoggingEventJsonProviders">-->
+<!--                    <pattern>-->
+<!--                        <pattern>-->
+<!--                            {-->
+<!--                            "level":"%level",-->
+<!--                            "thread":"%thread",-->
+<!--                            "client":"%X{client}",-->
+<!--                            "trace_id":"%X{trace_id}",-->
+<!--                            "date":"%d{yyyy-MM-dd HH:mm:ss.SSS}",-->
+<!--                            "logger":"%logger",-->
+<!--                            "msg":"%msg",-->
+<!--                            "detail_error":"%ex"-->
+<!--&lt;!&ndash;                            "stack_trace":"%stack_trace"&ndash;&gt;-->
+<!--                            }-->
+<!--                        </pattern>-->
+<!--                    </pattern>-->
+<!--&lt;!&ndash;                    <stackTrace>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <throwableConverter class="ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <maxDepthPerThrowable>30</maxDepthPerThrowable>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <maxLength>2048</maxLength>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <shortenedClassNameLength>20</shortenedClassNameLength>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <exclude>^sun\.reflect\..*\.invoke</exclude>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <evaluator class="myorg.MyCustomEvaluator"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <rootCauseFirst>true</rootCauseFirst>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </throwableConverter>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </stackTrace>&ndash;&gt;-->
+<!--                </providers>-->
+<!--&lt;!&ndash;                <charset>UTF-8</charset>&ndash;&gt;-->
+<!--            </encoder>-->
+<!--    	</appender>-->
 
     <appender name="file_all" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/all.log</file>

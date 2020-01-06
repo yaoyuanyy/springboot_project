@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Slf4j
 public class PreAppConfig {
-
-    @Bean
-    public Object object() {
-        log.info("PreAppConfig object in ---");
-        return new Object();
-    }
+//
+//    @Bean
+//    public Object object() {
+//        log.info("PreAppConfig object in ---");
+//        return new Object();
+//    }
 }

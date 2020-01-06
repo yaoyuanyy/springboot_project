@@ -6,7 +6,6 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.yy.demo.config.postprocess.Chinese;
-import com.yy.demo.config.postprocess.MyBeanPostProcessor;
 import com.yy.demo.web.anno.AttrbuteArgResolver;
 import com.yy.demo.web.anno.LoginHandlerInterceptor;
 import com.yy.demo.web.config.WebFilter;
@@ -60,17 +59,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Configuration
     public static class NestAppConfig extends PreAppConfig{
 
-        @Bean
-        public Object getObject() {
-            log.info("NestAppConfig getObject ---");
-            return new Object();
-        }
-    }
-
-    // test ---------------------------------
-    @Bean
-    public MyBeanPostProcessor myBeanPostProcessor(){
-        return new MyBeanPostProcessor();
+//        @Bean
+//        public Object getObject() {
+//            log.info("NestAppConfig getObject ---");
+//            return new Object();
+//        }
     }
 
     @Bean
