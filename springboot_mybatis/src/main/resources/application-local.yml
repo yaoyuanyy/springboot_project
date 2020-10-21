@@ -2,21 +2,17 @@ server:
   port: 2372
 
 ## 端点控制。注意：此端点配置仅用于开发环境
-#management:
-#  endpoints:
-#    enabled-by-default: true
-#    jmx:
-#      exposure:
-#        exclude: beans,info
-#        include: '*'
-#    web:
-#      exposure:
-#        exclude: beans
-#        include: '*'
-
 management:
-  security:
-    enabled: false
+  endpoints:
+    enabled-by-default: true
+    jmx:
+      exposure:
+        exclude: beans,info
+        include: '*'
+    web:
+      exposure:
+        exclude: beans
+        include: '*'
 
 # jdbc:mysql://localhost/jdbc_test?allowMultiQueries=true&useSSL=false
 DATABASE_HOST: localhost

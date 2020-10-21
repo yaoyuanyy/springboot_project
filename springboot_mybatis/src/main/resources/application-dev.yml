@@ -2,5 +2,13 @@ server:
   port: 2371
 
 management:
-  security:
-    enabled: false
+  endpoints:
+    enabled-by-default: true
+    jmx:
+      exposure:
+        exclude: beans,info
+        include: '*'
+    web:
+      exposure:
+        exclude: beans
+        include: '*'
